@@ -1,0 +1,113 @@
+
+body {
+    background-color: #181825;
+    --smallest-div: min(1vw, 1vh);
+    --smaller-div: min(4vw, 4vh);
+    --small-div: min(5vw, 5vh);
+    --container-size: min(90vw, 90vh);
+    --grid-size: min(78vw, 78vh);
+    --font-size: min(3vw, 3vh);
+
+    --green: #a6e3a1;
+    --yellow: #f9e2af;
+    --red: #f38ba8;
+    --clear: #fff0;
+
+}
+
+.counter {
+    position: absolute;
+    top: 1%;
+    left: 50%;
+    font-size: var(--font-size);
+    font-weight: 600;
+    color: #11111b;
+}
+
+@keyframes pulsate {
+    0%	  { box-shadow: 0 0 0 0 var(--current-color); border-color: #11111b; }
+    50%   { box-shadow: 0 0 calc(1.2 * var(--small-div)) var(--smallest-div) var(--current-color); border-color: var(--current-color); }
+    100%  { box-shadow: 0 0 0 0 var(--current-color); border-color: #11111b; }
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: var(--container-size);
+    height: var(--container-size);
+    border-radius: 8px;
+    margin-top: var(--small-div);
+    margin-bottom: var(--small-div);
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f5e0dc;
+    padding: var(--smallest-div);
+    position: relative;
+    box-shadow: 0 0 var(--small-div) var(--small-div) #11111b;
+}
+
+.grid-container.red {
+    --current-color: var(--red);
+    animation: pulsate 650ms ease-in-out 1;
+}
+
+.grid-container.yellow {
+    --current-color: var(--yellow);
+   animation: pulsate 650ms ease-in-out 1;
+}
+
+.grid-container.green {
+    --current-color: var(--green);
+    animation: pulsate 650ms ease-in-out 1;
+}
+
+.grid-container {
+    flex: 1;
+    background-color: #1e1e2e;
+    width: min(78vw, 78vh);
+    height: min(78vw, 78vh);
+    margin: var(--smaller-div);
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+    gap: 1px;
+    padding: var(--smallest-div);
+    border: 3px solid #11111b;
+    border-radius: 5px;
+    animation: none;
+}
+
+.grid-cell {
+    width: min(14vw, 14vh);
+    height: min(14vw, 14vh);
+    padding: 2px;
+    margin: auto;
+
+}
+
+.blank, .hidden, .revealed {
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden {
+    border: 2px solid #89b4fa;
+    border-radius: 4px;
+    background-color: #74c7ec;
+}
+
+.grid-cell.preview .hidden {
+    background-color: unset;
+}
+
+.number {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: min(8vw, 8vh);
+    color: #cdd6f4;
+}

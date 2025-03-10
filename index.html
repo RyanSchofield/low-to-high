@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8">
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <link rel="stylesheet" href="styles.css">
+        <script src="Game.js"></script>
+    </head>
+    <body>
+         <div class="game-container" x-data="{ game: new Game() }">
+	    <div 
+		x-data="{ color: '' }" 
+		x-bind:class="'grid-container ' + color" 
+		x-init="game.restartGame()" 
+		@countdown.window="color = $event.detail.color"
+		x-on:animationend="$el.removeAttribute('style'); color = ''; console.log('animationend')"
+	    >
+                <template x-for="cell in game.cells">
+                    <div x-bind:class="'grid-cell' + (game.showNumbers ? ' preview' : '')">
+                        <div x-bind:class="cell.state" x-on:touchend.stop="game.testGuess(cell)" x-on:click="game.testGuess(cell)">
+                            <template x-if="cell.state == 'revealed' || cell.state == 'hidden' && game.showNumbers">
+                                <div class="number" x-text="cell.number"></div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+         </div>
+    </body>
+</html>
