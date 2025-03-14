@@ -5,9 +5,20 @@
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
         <link rel="stylesheet" href="styles.css">
         <script src="Game.js"></script>
+	<script>
+	  function closeSettingsDialog() { document.getElementById('settings-dialog').close() }
+	  function changeTimerLength(game) { game.setTimerLength(document.getElementById('timer-length-slider').value); closeSettingsDialog(); }
+	</script>
     </head>
     <body>
          <div class="game-container" x-data="{ game: new Game() }">
+            <div class="settings-button"><button @click="document.getElementById('settings-dialog').showModal()">⚙</button></div>
+	    <dialog id="settings-dialog">
+	    	<div class="slider"><input id="timer-length-slider" type="range" min="100" max="5000" value="game.timerLength"></input></div>
+		<div class="buttons">
+		   <button @click="closeSettingsDialog()">close</button>
+		   <button @click="changeTimerLength(game)">ok</button>
+	    </dialog>
 	    <div 
 		x-data="{ color: '' }" 
 		x-bind:class="'grid-container ' + color" 

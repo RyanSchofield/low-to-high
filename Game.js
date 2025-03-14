@@ -1,6 +1,6 @@
 
 /**
- * Some ideas for user settings:
+ * Todo, some ideas for user settings:
  * - dimensions of grid, setting a maximum level goal
  * - size of grid, making the player scan more screen real estate
  *  -- could just be small, medium, large
@@ -10,9 +10,6 @@
  * - hide the other numbers when player clicks '1', no timer
  * - only change level after user clicks a 'ready' button
  * 
- * todos:
- * - 
- *
  */
 class Game {
     correctGuess = 1
@@ -21,6 +18,7 @@ class Game {
     cells = [];
     ignoreClick = false;
     countdown = 0;
+    timerLength = 1500; 
 
     constructor(initialLevel = 5) {
         if ( ! Number.isInteger(initialLevel) ) throw new Error("bad initial level")
@@ -94,6 +92,12 @@ class Game {
         return true;
     }
 
+    setTimerLength(timerLength) {
+	console.log('new timer length', timerLength);
+	this.timerLength = timerLength;
+	setTimeout(() => this.restartGame(), 500);
+    }
+
     restartGame() {
         console.log('restart game');
         this.showNumbers = false;
@@ -112,7 +116,7 @@ class Game {
                     console.log('timeout')
                     this.showNumbers = false
                     this.ignoreClick = false
-                }, 1500);
+                }, this.timerLength);
                 return;
             }
 	    
